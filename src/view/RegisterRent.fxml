@@ -34,7 +34,7 @@
             </Label>
             <ChoiceBox layoutX="132.0" layoutY="64.0" prefHeight="25.0" prefWidth="249.0" />
             <TextArea layoutX="15.0" layoutY="118.0" prefHeight="200.0" prefWidth="369.0" text="Rent info" />
-            <Button layoutX="693.0" layoutY="293.0" mnemonicParsing="false" text="Rent" />
+            <Button layoutX="650.0" layoutY="293.0" mnemonicParsing="false" text="Register rent" />
          </children>
       </Pane>
    </children>

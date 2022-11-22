@@ -45,7 +45,7 @@
             <TextField layoutX="79.0" layoutY="70.0" prefHeight="25.0" prefWidth="649.0" />
             <TextField layoutX="79.0" layoutY="40.0" prefHeight="25.0" prefWidth="649.0" />
             <ChoiceBox layoutX="299.0" layoutY="243.0" prefWidth="150.0" />
-            <Button layoutX="668.0" layoutY="292.0" mnemonicParsing="false" text="Register" />
+            <Button layoutX="644.0" layoutY="292.0" mnemonicParsing="false" text="Register book" />
             <TextField layoutX="79.0" layoutY="100.0" prefHeight="25.0" prefWidth="649.0" />
             <TextField layoutX="79.0" layoutY="133.0" prefHeight="25.0" prefWidth="649.0" />
             <Label layoutX="15.0" layoutY="104.0" text="Price:" textFill="WHITE">
