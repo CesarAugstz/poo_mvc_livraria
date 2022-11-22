@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #2C2A28;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewController">
+   <children>
+      <Label layoutX="196.0" layoutY="45.0" text="LIVRARIA MARTELO DE ASSIS" textFill="#fcac00">
+         <font>
+            <Font name="Verdana Bold" size="24.0" />
+         </font>
+      </Label>
+      <Pane layoutX="26.0" layoutY="112.0" prefHeight="346.0" prefWidth="748.0" style="-fx-background-color: #444444;">
+         <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+         </padding>
+         <children>
+            <Label layoutX="14.0" layoutY="14.0" text="Select user:" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Label>
+            <ChoiceBox layoutX="132.0" layoutY="13.0" prefHeight="25.0" prefWidth="249.0" />
+            <Label layoutX="14.0" layoutY="65.0" text="Select book:" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Label>
+            <ChoiceBox layoutX="132.0" layoutY="64.0" prefHeight="25.0" prefWidth="249.0" />
+            <TextArea layoutX="15.0" layoutY="118.0" prefHeight="200.0" prefWidth="369.0" text="Read info" />
+            <Button layoutX="693.0" layoutY="293.0" mnemonicParsing="false" text="Read" />
+         </children>
+      </Pane>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</AnchorPane>
