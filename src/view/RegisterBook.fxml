@@ -6,7 +6,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #2C2A28;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ViewController">
@@ -16,48 +19,63 @@
             <Font name="Verdana Bold" size="24.0" />
          </font>
       </Label>
-      <Pane layoutX="26.0" layoutY="112.0" prefHeight="346.0" prefWidth="748.0" style="-fx-background-color: #444444;">
+      <Pane layoutX="26.0" layoutY="110.0" prefHeight="346.0" prefWidth="748.0" style="-fx-background-color: #444444;">
          <padding>
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
          </padding>
          <children>
-            <Label layoutX="13.0" layoutY="14.0" text="Title:" textFill="WHITE">
-               <font>
-                  <Font name="Arial Black" size="12.0" />
-               </font>
-            </Label>
-            <Label layoutX="14.0" layoutY="44.0" text="Author:" textFill="WHITE">
-               <font>
-                  <Font name="Arial Black" size="12.0" />
-               </font>
-            </Label>
-            <Label layoutX="15.0" layoutY="74.0" text="Editorial:" textFill="WHITE">
-               <font>
-                  <Font name="Arial Black" size="12.0" />
-               </font>
-            </Label>
             <Label layoutX="322.0" layoutY="203.0" text="Type of book:" textFill="WHITE">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Label>
-            <TextField layoutX="79.0" layoutY="10.0" prefHeight="25.0" prefWidth="649.0" />
-            <TextField layoutX="79.0" layoutY="70.0" prefHeight="25.0" prefWidth="649.0" />
-            <TextField layoutX="79.0" layoutY="40.0" prefHeight="25.0" prefWidth="649.0" />
             <ChoiceBox layoutX="299.0" layoutY="243.0" prefWidth="150.0" />
             <Button layoutX="644.0" layoutY="292.0" mnemonicParsing="false" text="Register book" />
-            <TextField layoutX="79.0" layoutY="100.0" prefHeight="25.0" prefWidth="649.0" />
-            <TextField layoutX="79.0" layoutY="133.0" prefHeight="25.0" prefWidth="649.0" />
-            <Label layoutX="15.0" layoutY="104.0" text="Price:" textFill="WHITE">
-               <font>
-                  <Font name="Arial Black" size="12.0" />
-               </font>
-            </Label>
-            <Label layoutX="15.0" layoutY="137.0" text="Quantity:" textFill="WHITE">
-               <font>
-                  <Font name="Arial Black" size="12.0" />
-               </font>
-            </Label>
+            <GridPane layoutX="14.0" layoutY="3.0" prefHeight="160.0" prefWidth="714.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="360.0" minWidth="10.0" prefWidth="69.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="666.0" minWidth="10.0" prefWidth="645.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Title:" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Black" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Author:" textFill="WHITE" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Arial Black" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Editorial:" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Arial Black" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Price:" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Arial Black" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Quantity:" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="Arial Black" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField prefHeight="25.0" prefWidth="356.0" GridPane.columnIndex="1" />
+                  <TextField prefHeight="25.0" prefWidth="644.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField prefHeight="25.0" prefWidth="647.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField prefHeight="25.0" prefWidth="649.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField prefHeight="25.0" prefWidth="649.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+               </children>
+            </GridPane>
          </children>
       </Pane>
    </children>
