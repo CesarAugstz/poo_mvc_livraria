@@ -24,7 +24,10 @@ public class Program{
 		Scanner sc = new Scanner(System.in);
 		bookList = initializeBooks(bookList);
 		userList = initializeUsers(userList);
-		
+		/*
+		 * 	JUST FOR VIEW
+		 * 
+		 */
 		do { 
 			System.out.println();
 			System.out.println("Livraria Martelo de Assis");

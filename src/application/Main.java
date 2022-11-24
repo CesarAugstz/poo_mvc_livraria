@@ -17,7 +17,7 @@ public class Main extends Application
 	{
 		try
 		{
-			Parent parent = FXMLLoader.load(getClass().getResource("/view/RegisterRead.fxml"));
+			Parent parent = FXMLLoader.load(getClass().getResource("/view/Menu.fxml"));
 			Scene scene = new Scene(parent);
 			stage.setScene(scene);
 			stage.show();
