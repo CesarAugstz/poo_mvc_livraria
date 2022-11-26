@@ -51,6 +51,11 @@ public class MainController {
 		mainDB.addNewUser(user);
 		
 		System.out.println("User added");
+		
+		users = mainDB.getUserList();
+		for (User u: users)
+			System.out.println(u.toString());
+		
 			
 		
 	}
@@ -158,6 +163,40 @@ public class MainController {
 	public void onBtRegisterSell() {
 		try {
 			Parent parent = FXMLLoader.load(getClass().getResource("/view/RegisterSell.fxml"));
+			Scene scene = new Scene(parent);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.show();
+			
+	    } catch (IOException e) {
+            e.printStackTrace();
+	    }
+	}
+	
+	@FXML
+	private Button btShowBooks;
+
+	@FXML	//open ShowBoooks
+	public void onBtShowBooks() {
+		try {
+			Parent parent = FXMLLoader.load(getClass().getResource("/view/ShowBooks.fxml"));
+			Scene scene = new Scene(parent);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.show();
+			
+	    } catch (IOException e) {
+            e.printStackTrace();
+	    }
+	}
+	
+	@FXML
+	private Button btShowPromotions;
+
+	@FXML	//open ShowPromotions
+	public void onBtShowPromotions() {
+		try {
+			Parent parent = FXMLLoader.load(getClass().getResource("/view/ShowPromotions.fxml"));
 			Scene scene = new Scene(parent);
 			Stage stage = new Stage();
 			stage.setScene(scene);
