@@ -25,7 +25,7 @@
          </padding>
          <children>
             <TextArea layoutX="15.0" layoutY="118.0" prefHeight="200.0" prefWidth="369.0" text="Read info" />
-            <Button layoutX="648.0" layoutY="293.0" mnemonicParsing="false" text="Register read" />
+            <Button layoutX="648.0" layoutY="293.0" mnemonicParsing="false" onAction="#onBtRegisterRead1" text="Register read" />
             <GridPane layoutX="14.0" layoutY="14.0" prefHeight="90.0" prefWidth="369.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="167.0" minWidth="10.0" prefWidth="110.0" />

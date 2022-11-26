@@ -10,13 +10,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.entities.Book;
 import model.entities.User;
+import view.util.Alerts;
 
 
 public class MainController {
@@ -50,13 +53,11 @@ public class MainController {
 		User user = new User(txtName.getText(), txtAddress.getText(), txtCPF.getText());
 		mainDB.addNewUser(user);
 		
-		System.out.println("User added");
+		Alerts.showAlert("New User", "User registered!", null, AlertType.INFORMATION);
 		
 		users = mainDB.getUserList();
 		for (User u: users)
 			System.out.println(u.toString());
-		
-			
 		
 	}
 	
@@ -111,7 +112,7 @@ public class MainController {
 	@FXML //open registerReadWindow
 	public void onBtRegisterRead() {
 		try {
-			Parent parent = FXMLLoader.load(getClass().getResource("/view/RegisterRent.fxml"));
+			Parent parent = FXMLLoader.load(getClass().getResource("/view/RegisterRead.fxml"));
 			Scene scene = new Scene(parent);
 			Stage stage = new Stage();
 			stage.setScene(scene);
@@ -138,6 +139,29 @@ public class MainController {
             e.printStackTrace();
 	    }
 	}
+	
+	//open add new book on system
+		@FXML
+		private TextField txtTitle, txtAuthor, txtEditorial, txtCategory, txtPrice, txtQuantity;
+		public void onBtAddNewBook() {
+			
+			//adding book
+			try
+			{
+			Book book = new Book(txtTitle.getText(), txtAuthor.getText(), txtEditorial.getText(), txtCategory.getText(), Double.parseDouble(txtPrice.getText()), Integer.parseInt(txtQuantity.getText()));
+			mainDB.addNewBook(book);
+			
+			Alerts.showAlert("New Book", "Book registered!", null, AlertType.INFORMATION);
+			
+			List<Book> books = mainDB.getBookList();
+			for (Book u: books)
+				System.out.println(u.toString());
+			}
+			catch(Exception e) {
+				e.getMessage();
+				Alerts.showAlert("New Book", "Book unregistered", null, AlertType.ERROR);
+			}
+		}
 
 	@FXML	
 	private Button btNewPromotion;
@@ -171,6 +195,18 @@ public class MainController {
 	    } catch (IOException e) {
             e.printStackTrace();
 	    }
+	}
+	
+	public void onBtRegisterRent1() {
+		Alerts.showAlert("New Rent", "Rent registered", null, AlertType.INFORMATION);
+	}
+	
+	public void onBtRegisterRead1() {
+		Alerts.showAlert("New Read", "Read registered", null, AlertType.INFORMATION);
+	}
+	
+	public void onBtRegisterSell1() {
+		Alerts.showAlert("New Sell", "Sell registered", null, AlertType.INFORMATION);
 	}
 	
 	@FXML
