@@ -2,7 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -19,7 +20,13 @@
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
          </padding>
          <children>
-            <ListView fx:id="listUserView" layoutX="1.0" layoutY="-1.0" prefHeight="346.0" prefWidth="748.0" />
+            <TableView fx:id="tableShowUsers" layoutX="-1.0" layoutY="-1.0" prefHeight="346.0" prefWidth="748.0">
+              <columns>
+                <TableColumn prefWidth="278.0" text="NAME" />
+                <TableColumn minWidth="9.0" prefWidth="220.0" text="CATEGORY" />
+                  <TableColumn prefWidth="248.0" text="CPF" />
+              </columns>
+            </TableView>
          </children>
       </Pane>
    </children>
