@@ -134,6 +134,10 @@ public class MainController {
 			Alerts.showAlert("New Book", "Book unregistered", null, AlertType.ERROR);
 		}
 	}
+	
+	public void onBtAddNewPromotion(){
+		Alerts.showAlert("New Promotion", "Promotion registered", null, AlertType.INFORMATION);
+	}
 
 	@FXML	
 	private Button btNewPromotion;
