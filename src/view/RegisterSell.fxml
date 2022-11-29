@@ -25,7 +25,7 @@
          </padding>
          <children>
             <TextArea layoutX="15.0" layoutY="118.0" prefHeight="200.0" prefWidth="369.0" text="Sell info" />
-            <Button layoutX="654.0" layoutY="293.0" mnemonicParsing="false" text="Register sell" />
+            <Button layoutX="654.0" layoutY="293.0" mnemonicParsing="false" onAction="#onBtRegisterSell1" text="Register sell" />
             <GridPane layoutX="15.0" layoutY="14.0" prefHeight="60.0" prefWidth="369.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" prefWidth="106.0" />

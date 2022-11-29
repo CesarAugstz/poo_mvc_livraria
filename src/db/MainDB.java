@@ -35,6 +35,10 @@ public class MainDB {
 	public void setUserList(List<User> userList) {
 		this.userList = userList;
 	}
+
+	public void addNewBook(Book book) {
+		bookList.add(book);
+	}
 	
 	
 }
