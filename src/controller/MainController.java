@@ -49,24 +49,6 @@ public class MainController {
 	}
 	
 	
-	//open add new user on system
-	@FXML
-	private TextField txtName, txtAddress, txtCPF;
-	public void onBtAddNewUser() {
-		
-		//adding user
-		User user = new User(txtName.getText(), txtAddress.getText(), txtCPF.getText());
-		mainDB.addNewUser(user);
-		
-
-		Alerts.showAlert("New User", "User registered!", null, AlertType.INFORMATION);
-		
-		users = mainDB.getUserList();
-		for (User u: users)
-			System.out.println(u.toString());
-		
-	}
-	
 	//show users on system
 	@FXML
 	public void onBtShowUsers() {
