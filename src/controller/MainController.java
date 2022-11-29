@@ -172,12 +172,7 @@ public class MainController {
 			
 	    } catch (IOException e) {
             e.printStackTrace();
-            
 	    }
-	}
-	
-	public void onBtAddNewPromotion(){
-		Alerts.showAlert("New Promotion", "Promotion registered", null, AlertType.INFORMATION);
 	}
 
 	@FXML
