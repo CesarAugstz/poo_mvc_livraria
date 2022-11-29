@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #2C2A28;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #2C2A28;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ShowBooksController">
    <children>
       <Label layoutX="196.0" layoutY="45.0" text="LIVRARIA MARTELO DE ASSIS" textFill="#fcac00">
          <font>
@@ -23,14 +23,14 @@
          <children>
             <ScrollPane prefHeight="346.0" prefWidth="754.0">
                <content>
-                  <TableView fx:id="tableShowUsers" prefHeight="346.0" prefWidth="1052.0">
+                  <TableView fx:id="tableShowBooks" prefHeight="346.0" prefWidth="1052.0">
                     <columns>
-                      <TableColumn prefWidth="192.0" text="TITLE" />
-                      <TableColumn minWidth="9.0" prefWidth="195.0" text="AUTHOR" />
-                        <TableColumn prefWidth="189.0" text="EDITORIAL" />
-                        <TableColumn prefWidth="164.0" text="CATEGORY" />
-                        <TableColumn prefWidth="164.0" text="PRICE" />
-                        <TableColumn prefWidth="164.0" text="QUANTITY" />
+                      <TableColumn fx:id="colTitle" prefWidth="192.0" text="TITLE" />
+                      <TableColumn fx:id="colAuthor" minWidth="9.0" prefWidth="195.0" text="AUTHOR" />
+                        <TableColumn fx:id="colEditorial" prefWidth="189.0" text="EDITORIAL" />
+                        <TableColumn fx:id="colCategory" prefWidth="164.0" text="CATEGORY" />
+                        <TableColumn fx:id="colPrice" prefWidth="164.0" text="PRICE" />
+                        <TableColumn fx:id="colQuantity" prefWidth="164.0" text="QUANTITY" />
                     </columns>
                   </TableView>
                </content>
