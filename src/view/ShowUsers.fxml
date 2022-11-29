@@ -22,9 +22,8 @@
          <children>
             <TableView fx:id="tableShowUsers" prefHeight="346.0" prefWidth="748.0">
               <columns>
-                <TableColumn fx:id="colUserName" prefWidth="240.0" text="NAME" />
-                <TableColumn fx:id="colUserCPF" prefWidth="285.0" text="CPF" />
-                  <TableColumn fx:id="colUserName1" minWidth="0.0" prefWidth="222.0" text="ADDRESS" />
+                <TableColumn fx:id="colUserName" prefWidth="75.0" text="Name" />
+                <TableColumn fx:id="colUserCPF" prefWidth="75.0" text="CPF" />
               </columns>
             </TableView>
          </children>

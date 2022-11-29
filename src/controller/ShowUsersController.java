@@ -15,11 +15,13 @@ public class ShowUsersController implements Initializable{
 	@FXML private TableView<User> tableShowUsers;
     @FXML private TableColumn<User, String> colUserName;
     @FXML private TableColumn<User, String> colUserCPF;
+    @FXML private TableColumn<User, String> colUserAddress;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     	colUserName.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
     	colUserCPF.setCellValueFactory(new PropertyValueFactory<User, String>("cpf"));
+    	colUserAddress.setCellValueFactory(new PropertyValueFactory<User, String>("address"));
  
     	tableShowUsers.getItems().setAll(MainController.mainDB.getUserList());
     }
