@@ -133,28 +133,25 @@ public class MainController {
 	    }
 	}
 	
-	//open add new book on system
-		@FXML
-		private TextField txtTitle, txtAuthor, txtEditorial, txtCategory, txtPrice, txtQuantity;
-		public void onBtAddNewBook() {
-			
-			//adding book
-			try
-			{
-			Book book = new Book(txtTitle.getText(), txtAuthor.getText(), txtEditorial.getText(), txtCategory.getText(), Double.parseDouble(txtPrice.getText()), Integer.parseInt(txtQuantity.getText()));
-			mainDB.addNewBook(book);
-			
-			Alerts.showAlert("New Book", "Book registered!", null, AlertType.INFORMATION);
-			
-			List<Book> books = mainDB.getBookList();
-			for (Book u: books)
-				System.out.println(u.toString());
-			}
-			catch(Exception e) {
-				e.getMessage();
-				Alerts.showAlert("New Book", "Book unregistered", null, AlertType.ERROR);
-			}
+	//add new book on system
+	public void addNewBook(Book book) {
+		
+		//adding book
+		try
+		{
+		mainDB.addNewBook(book);
+		
+		Alerts.showAlert("New Book", "Book registered!", null, AlertType.INFORMATION);
+		
+		List<Book> books = mainDB.getBookList();
+		for (Book u: books)
+			System.out.println(u.toString());
 		}
+		catch(Exception e) {
+			e.getMessage();
+			Alerts.showAlert("New Book", "Book unregistered", null, AlertType.ERROR);
+		}
+	}
 
 	@FXML	
 	private Button btNewPromotion;

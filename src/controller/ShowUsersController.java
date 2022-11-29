@@ -19,11 +19,16 @@ public class ShowUsersController implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	colUserName.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
-    	colUserCPF.setCellValueFactory(new PropertyValueFactory<User, String>("cpf"));
-    	colUserAddress.setCellValueFactory(new PropertyValueFactory<User, String>("address"));
- 
-    	tableShowUsers.getItems().setAll(MainController.mainDB.getUserList());
+    	try {
+	    	colUserName.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
+	    	colUserCPF.setCellValueFactory(new PropertyValueFactory<User, String>("cpf"));
+	    	colUserAddress.setCellValueFactory(new PropertyValueFactory<User, String>("address"));
+	 
+	    	tableShowUsers.getItems().setAll(MainController.mainDB.getUserList());
+    	}
+    	catch(Exception e) {
+    		System.out.println(e.getMessage());
+    	}
     }
 	
 }
