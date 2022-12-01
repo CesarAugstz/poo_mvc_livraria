@@ -22,6 +22,7 @@ public class MainController {
 	
 	static MainDB mainDB = new MainDB();
 	private List<User> users;
+	Stage stage;
 
 	@FXML
 	private Button btNewUser;
@@ -31,16 +32,17 @@ public class MainController {
 		try {
 			Parent parent = FXMLLoader.load(getClass().getResource("/view/RegisterUser.fxml"));
 			Scene scene = new Scene(parent);
-			Stage stage = new Stage();
+			stage = new Stage();
 			stage.setScene(scene);
 			stage.show();
 			stage.setResizable(false);
-			
+
 			
 	    } catch (IOException e) {
             e.printStackTrace();
 	    }	
 	}
+	
 	
 	
 	//show users on system

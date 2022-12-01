@@ -10,12 +10,18 @@ import model.entities.GeekUser;
 import model.entities.NewlyReleasedBook;
 import model.entities.PremiumBook;
 import model.entities.PremiumUser;
+import model.entities.Read;
+import model.entities.Rent;
+import model.entities.Sale;
 import model.entities.User;
 
 public class MainDB {
 
 	private List<Book> bookList = new ArrayList<>();
 	private List<User> userList = new ArrayList<>();
+	private List<Sale> saleList = new ArrayList<>();
+	private List<Rent> rentList = new ArrayList<>();
+	private List<Read> readList = new ArrayList<>();
 	
 	
 	public MainDB() {
@@ -45,6 +51,31 @@ public class MainDB {
 
 	public void addNewBook(Book book) {
 		bookList.add(book);
+	}
+	
+	
+	public List<Sale> getSaleList() {
+		return saleList;
+	}
+
+	public List<Rent> getRentList() {
+		return rentList;
+	}
+
+	public List<Read> getReadList() {
+		return readList;
+	}
+
+	public void addNewSale(Sale sale) {
+		saleList.add(sale);
+	}
+	
+	public void addNewRead(Read read) {
+		readList.add(read);
+	}
+	
+	public void addNewRent(Rent rent) {
+		rentList.add(rent);
 	}
 	
 	

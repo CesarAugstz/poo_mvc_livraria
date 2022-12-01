@@ -62,6 +62,7 @@ public class RegisterBookController implements Initializable{
     	}
 	    catch (Exception e) {
 	    	System.out.println(e.getMessage());
+	    	Alerts.showAlert("New User", "Error!  " + e.getMessage(), null, AlertType.ERROR);
 	    }
     }
 }
