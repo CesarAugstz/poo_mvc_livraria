@@ -24,7 +24,7 @@ import model.entities.Sale;
 import model.entities.User;
 import view.util.Alerts;
 
-public class RegisterSellController implements Initializable{
+public class RegisterRentController implements Initializable{
 
 	@FXML private ChoiceBox<String> choiceBoxUser;
 	@FXML private ChoiceBox<String> choiceBoxBook;

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -17,20 +16,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
 import javafx.stage.StageStyle;
+import model.entities.BestSellerBook;
 import model.entities.Book;
-import model.entities.Sale;
+import model.entities.GeekUser;
+import model.entities.PremiumUser;
+import model.entities.Read;
 import model.entities.User;
 import view.util.Alerts;
 
-public class RegisterSellController implements Initializable{
+public class RegisterReadController implements Initializable{
 
 	@FXML private ChoiceBox<String> choiceBoxUser;
 	@FXML private ChoiceBox<String> choiceBoxBook;
-	@FXML private ChoiceBox<String> choiceQnt;
 	@FXML private Button btnSave;
-	@FXML private TextArea txtInfo;
 	@FXML private DatePicker datePicker;
 	
 	private List<User> users = MainController.mainDB.getUserList();
@@ -44,85 +43,87 @@ public class RegisterSellController implements Initializable{
     	choiceBoxUser.getSelectionModel().selectFirst();
     	
     
+    	//only books available for read
     	for (Book b : books) 
-    		choiceBoxBook.getItems().add(books.indexOf(b), b.toString());
+    		if (!(b instanceof BestSellerBook)) 
+    			choiceBoxBook.getItems().add(books.indexOf(b), b.toString());
     	choiceBoxBook.getSelectionModel().selectFirst();
     	
     	datePicker.setValue(LocalDate.now()); 
     	
-    	showQnt();
-    	
-    	choiceBoxBook.getSelectionModel()
-        .selectedItemProperty()
-        .addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) ->  showQnt());
-    	
     }
     
-    //qnt of books on system
-    private void showQnt() {
-    	choiceQnt.getItems().clear();
-    	int qnt = books.get(choiceBoxBook.getSelectionModel().getSelectedIndex()).getQuantity();
     
-    	for (int i = 1; i <= qnt; i++){
-    		choiceQnt.getItems().add(String.valueOf(i));
-    	}
-    }
+    
     
     
     @FXML
-    private void onBtnSave() {
+    private void onBtRegisterRead() {
     	try {
     		
     		//user and book selected
     		User user = users.get(choiceBoxUser.getSelectionModel().getSelectedIndex());
     		Book book = books.get(choiceBoxBook.getSelectionModel().getSelectedIndex());
     		Date date = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-    		int qnt = Integer.parseInt(choiceQnt.getSelectionModel().getSelectedItem());
     		
-    		//info sale
-    		StringBuilder sb = new StringBuilder();
     		
-    		double totalPrice = book.sellBook(user, qnt);
-			double increase = totalPrice - (book.getPrice() * qnt);
-			double discount = totalPrice;
-			totalPrice =user.sellBook(qnt, totalPrice);
-			discount = discount - totalPrice;
+    		/*
+    		 * 	VER A DATA SE NÃO ESTA SENDO ALUGADO JA
+    		 * 
+    		 * O usu´ario pode reservar para leitura qualquer livro que tamb´em esteja dispon´ıvel para aluguel, informando
+    		 *		o dia da reserva. S´o ´e poss´ıvel reservar um livro para leitura por per´ıodo igual a 1 dia e a reserva n˜ao pode
+    		 *		ser feita em data futura superior `a 3 dias da data atual da reserva.
+    		 * 
+    		 * 
+    		 * 
+    		 * 
+    		 */
+    	
+    		
+    		//calculando o aluguel
+			double totalPrice = book.readBook(user);
+			double increase = totalPrice - ((book.getPrice() / 5));
 			
-			sb.append("---SELL INFO---");
+			//calculando desconto
+			if (user instanceof GeekUser || user instanceof PremiumUser) {
+				totalPrice = 0.0;
+			}
+			
+			
+			//informacoes do aluguel
+			StringBuilder sb = new StringBuilder();
 			sb.append("\n");
+			sb.append("---READ INFO---");
 			sb.append("User =  " + user.toString());
 			sb.append("\n");
 			sb.append("Book =  " + book.toString());
 			sb.append("\n");
 			sb.append("Increase = $" + String.format("%.2f", increase));
-			sb.append("\n");
-			sb.append("Discount = $" + String.format("%.2f", discount));
-			sb.append("\n");
-			sb.append("Total Price = " + String.format("%.2f", totalPrice));
+			sb.append("Total Price = $" + String.format("%.2f", totalPrice));
 			sb.append("\n");
     		
 			
-    		//confirm sale
+    		//confirm Read
     		Alert alert = new Alert(AlertType.CONFIRMATION);
     	    alert.initStyle(StageStyle.UTILITY);
-    	    alert.setHeaderText("Confirm Sale?");
+    	    alert.setHeaderText("Confirm Read?");
     	    Optional<ButtonType> choose = alert.showAndWait();
     	    alert.getButtonTypes().addAll(ButtonType.CANCEL);
     	    
     	    
     	    if (choose.get() == ButtonType.OK) {
-    	    	//saving sale
-        		Sale sale = new Sale(user, date, book, qnt);
-        		MainController.mainDB.addNewSale(sale);
-        		Alerts.showAlert("New Sale", "Sale registered!" + sb.toString(), null, AlertType.INFORMATION);
+    	    	//saving Read
+        		Read read = new Read(user, date, book);
+        		MainController.mainDB.addNewRead(read);
+        		Alerts.showAlert("New Read", "Read registered!" + sb.toString(), null, AlertType.INFORMATION);
     	    }
     	    else
-    	    	Alerts.showAlert("New Sale", "Sale not registered!", null, AlertType.WARNING);
+    	    	Alerts.showAlert("New Read", "Read not registered!", null, AlertType.WARNING);
     	    
     	    
     	}
     	catch (Exception e) {
-    		Alerts.showAlert("Register Sell", "Error!  " + e.getMessage(), null, AlertType.ERROR);
+    		Alerts.showAlert("Register Read", "Error!  " + e.getMessage(), null, AlertType.ERROR);
     	}
     	
     }
