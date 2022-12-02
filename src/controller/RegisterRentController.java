@@ -24,7 +24,7 @@ import model.entities.GeekUser;
 import model.entities.PremiumUser;
 import model.entities.Rent;
 import model.entities.User;
-import view.util.Alerts;10
+import view.util.Alerts;
 
 public class RegisterRentController implements Initializable{
 
