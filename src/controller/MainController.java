@@ -7,11 +7,11 @@ import java.util.List;
 import db.MainDB;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.LoadException;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.entities.Book;
 import model.entities.User;
@@ -96,7 +96,9 @@ public class MainController {
 			
 	    } catch (IOException e) {
             e.printStackTrace();
-	    }
+            System.out.println(e.getMessage());
+	    } 
+		
 	}
 
 	@FXML
@@ -173,6 +175,7 @@ public class MainController {
 	    }
 	}
 	
+	//OQ E ISSO?????
 	public void onBtRegisterRent1() {
 		Alerts.showAlert("New Rent", "Rent registered", null, AlertType.INFORMATION);
 	}

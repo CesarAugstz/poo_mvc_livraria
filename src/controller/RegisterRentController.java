@@ -1,6 +1,7 @@
 package controller;
 
 import java.net.URL;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -8,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -17,12 +17,14 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
 import javafx.stage.StageStyle;
+import model.entities.BestSellerBook;
 import model.entities.Book;
-import model.entities.Sale;
+import model.entities.GeekUser;
+import model.entities.PremiumUser;
+import model.entities.Rent;
 import model.entities.User;
-import view.util.Alerts;
+import view.util.Alerts;10
 
 public class RegisterRentController implements Initializable{
 
@@ -30,8 +32,8 @@ public class RegisterRentController implements Initializable{
 	@FXML private ChoiceBox<String> choiceBoxBook;
 	@FXML private ChoiceBox<String> choiceQnt;
 	@FXML private Button btnSave;
-	@FXML private TextArea txtInfo;
-	@FXML private DatePicker datePicker;
+	@FXML private DatePicker datePicker1;
+	@FXML private DatePicker datePicker2;
 	
 	private List<User> users = MainController.mainDB.getUserList();
 	private List<Book> books= MainController.mainDB.getBookList();
@@ -48,25 +50,11 @@ public class RegisterRentController implements Initializable{
     		choiceBoxBook.getItems().add(books.indexOf(b), b.toString());
     	choiceBoxBook.getSelectionModel().selectFirst();
     	
-    	datePicker.setValue(LocalDate.now()); 
-    	
-    	showQnt();
-    	
-    	choiceBoxBook.getSelectionModel()
-        .selectedItemProperty()
-        .addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) ->  showQnt());
-    	
+    	datePicker1.setValue(LocalDate.now()); 
+    	datePicker2.setValue(LocalDate.now()); 
     }
     
-    //qnt of books on system
-    private void showQnt() {
-    	choiceQnt.getItems().clear();
-    	int qnt = books.get(choiceBoxBook.getSelectionModel().getSelectedIndex()).getQuantity();
     
-    	for (int i = 1; i <= qnt; i++){
-    		choiceQnt.getItems().add(String.valueOf(i));
-    	}
-    }
     
     
     @FXML
@@ -76,53 +64,72 @@ public class RegisterRentController implements Initializable{
     		//user and book selected
     		User user = users.get(choiceBoxUser.getSelectionModel().getSelectedIndex());
     		Book book = books.get(choiceBoxBook.getSelectionModel().getSelectedIndex());
-    		Date date = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-    		int qnt = Integer.parseInt(choiceQnt.getSelectionModel().getSelectedItem());
+    		Date dateStart = Date.from(datePicker1.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+    		Date dateEnd = Date.from(datePicker2.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+    		LocalDate lDateStart = datePicker1.getValue();
+    		LocalDate lDateEnd = datePicker2.getValue();
+    		Duration d1 = Duration.between(lDateStart.atStartOfDay(), lDateEnd.atStartOfDay());
+    		int d2 = (int)d1.toDays();
+    		System.out.println(d2);
     		
-    		//info sale
-    		StringBuilder sb = new StringBuilder();
-    		
-    		double totalPrice = book.sellBook(user, qnt);
-			double increase = totalPrice - (book.getPrice() * qnt);
-			double discount = totalPrice;
-			totalPrice =user.sellBook(qnt, totalPrice);
-			discount = discount - totalPrice;
-			
-			sb.append("---SELL INFO---");
-			sb.append("\n");
-			sb.append("User =  " + user.toString());
-			sb.append("\n");
-			sb.append("Book =  " + book.toString());
-			sb.append("\n");
-			sb.append("Increase = $" + String.format("%.2f", increase));
-			sb.append("\n");
-			sb.append("Discount = $" + String.format("%.2f", discount));
-			sb.append("\n");
-			sb.append("Total Price = " + String.format("%.2f", totalPrice));
-			sb.append("\n");
-    		
-			
-    		//confirm sale
-    		Alert alert = new Alert(AlertType.CONFIRMATION);
-    	    alert.initStyle(StageStyle.UTILITY);
-    	    alert.setHeaderText("Confirm Sale?");
-    	    Optional<ButtonType> choose = alert.showAndWait();
-    	    alert.getButtonTypes().addAll(ButtonType.CANCEL);
-    	    
-    	    
-    	    if (choose.get() == ButtonType.OK) {
-    	    	//saving sale
-        		Sale sale = new Sale(user, date, book, qnt);
-        		MainController.mainDB.addNewSale(sale);
-        		Alerts.showAlert("New Sale", "Sale registered!" + sb.toString(), null, AlertType.INFORMATION);
-    	    }
-    	    else
-    	    	Alerts.showAlert("New Sale", "Sale not registered!", null, AlertType.WARNING);
-    	    
-    	    
+    		if (!(book instanceof BestSellerBook)) {
+    			if (lDateStart.isAfter(LocalDate.now().minusDays(1)) && lDateStart.isBefore(LocalDate.now().plusDays(3)) && lDateEnd.isAfter(lDateStart.plusWeeks(1)) && lDateEnd.isBefore(lDateStart.plusMonths(1))) {
+    			
+		    		//info Rent
+		    		StringBuilder sb = new StringBuilder();
+		    		
+		    		//calculando o aluguel
+					double totalPrice = book.readBook(user) * d2;
+					double increase = totalPrice - ((book.getPrice() / 5));
+					
+					//calculando desconto
+					if (user instanceof GeekUser || user instanceof PremiumUser) {
+						totalPrice = 0.0;
+					}
+					
+					
+					sb.append("---Rent INFO---");
+					sb.append("\n");
+					sb.append("User =  " + user.toString());
+					sb.append("\n");
+					sb.append("Book =  " + book.toString());
+					sb.append("\n");
+					sb.append("Total days: " + d2 + "days");
+					sb.append("\n");
+					sb.append("Increase = $" + String.format("%.2f", increase));
+					sb.append("\n");
+					sb.append("Total Price = " + String.format("%.2f", totalPrice));
+					sb.append("\n");
+		    		
+					
+		    		//confirm Rent
+		    		Alert alert = new Alert(AlertType.CONFIRMATION);
+		    	    alert.initStyle(StageStyle.UTILITY);
+		    	    alert.setHeaderText("Confirm Rent?");
+		    	    Optional<ButtonType> choose = alert.showAndWait();
+		    	    alert.getButtonTypes().addAll(ButtonType.CANCEL);
+		    	    
+		    	    
+		    	    if (choose.get() == ButtonType.OK) {
+		    	    	//saving Rent
+		        		Rent Rent = new Rent(user, dateStart, dateEnd, book);
+		        		MainController.mainDB.addNewRent(Rent);
+		        		Alerts.showAlert("New Rent", "Rent registered!" + sb.toString(), null, AlertType.INFORMATION);
+		    	    }
+		    	    else
+		    	    	Alerts.showAlert("New Rent", "Rent not registered!", null, AlertType.WARNING);
+    			}
+    			//incorrect date
+    			else
+    				Alerts.showAlert("Register Rent", "Error!  Incorrect Date", null, AlertType.ERROR);
+    		}
+    		//book not available
+    		else 
+    			Alerts.showAlert("Register Rent", "Error!  Book not available" , null, AlertType.ERROR);
+	    	    
     	}
     	catch (Exception e) {
-    		Alerts.showAlert("Register Sell", "Error!  " + e.getMessage(), null, AlertType.ERROR);
+    		Alerts.showAlert("Register Rent", "Error!  " + e.getMessage(), null, AlertType.ERROR);
     	}
     	
     }

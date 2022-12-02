@@ -42,19 +42,13 @@ public class RegisterReadController implements Initializable{
     		choiceBoxUser.getItems().add(users.indexOf(u), u.toString());
     	choiceBoxUser.getSelectionModel().selectFirst();
     	
-    
-    	//only books available for read
-    	for (Book b : books) 
-    		if (!(b instanceof BestSellerBook)) 
-    			choiceBoxBook.getItems().add(books.indexOf(b), b.toString());
-    	choiceBoxBook.getSelectionModel().selectFirst();
     	
+    	for (Book b : books)
+			choiceBoxBook.getItems().add(books.indexOf(b), b.toString());
+    	choiceBoxBook.getSelectionModel().selectFirst();
     	datePicker.setValue(LocalDate.now()); 
     	
     }
-    
-    
-    
     
     
     @FXML
@@ -65,60 +59,62 @@ public class RegisterReadController implements Initializable{
     		User user = users.get(choiceBoxUser.getSelectionModel().getSelectedIndex());
     		Book book = books.get(choiceBoxBook.getSelectionModel().getSelectedIndex());
     		Date date = Date.from(datePicker.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
+    		LocalDate lDate = datePicker.getValue();
     		
     		
-    		/*
-    		 * 	VER A DATA SE NÃO ESTA SENDO ALUGADO JA
-    		 * 
-    		 * O usu´ario pode reservar para leitura qualquer livro que tamb´em esteja dispon´ıvel para aluguel, informando
-    		 *		o dia da reserva. S´o ´e poss´ıvel reservar um livro para leitura por per´ıodo igual a 1 dia e a reserva n˜ao pode
-    		 *		ser feita em data futura superior `a 3 dias da data atual da reserva.
-    		 * 
-    		 * 
-    		 * 
-    		 * 
-    		 */
-    	
+    		if (!(lDate.isAfter(LocalDate.now().plusDays(3)) || lDate.isBefore(LocalDate.now()))) {
+	    			
+    			if (!(book instanceof BestSellerBook)) {
+	    			//calculando o aluguel
+	    			double totalPrice = book.readBook(user);
+	    			double increase = totalPrice - ((book.getPrice() / 5));
+	    			
+	    			//calculando desconto
+	    			if (user instanceof GeekUser || user instanceof PremiumUser) {
+	    				totalPrice = 0.0;
+	    			}
+	    			
+	    			
+	    			//informacoes do aluguel
+	    			StringBuilder sb = new StringBuilder();
+	    			sb.append("\n");
+	    			sb.append("---READ INFO---");
+	    			sb.append("User =  " + user.toString());
+	    			sb.append("\n");
+	    			sb.append("Book =  " + book.toString());
+	    			sb.append("\n");
+	    			sb.append("Increase = $" + String.format("%.2f", increase));
+	    			sb.append("Total Price = $" + String.format("%.2f", totalPrice));
+	    			sb.append("\n");
+	        		
+	    			
+	        		//confirm Read
+	        		Alert alert = new Alert(AlertType.CONFIRMATION);
+	        	    alert.initStyle(StageStyle.UTILITY);
+	        	    alert.setHeaderText("Confirm Read?");
+	        	    Optional<ButtonType> choose = alert.showAndWait();
+	        	    alert.getButtonTypes().addAll(ButtonType.CANCEL);
+	        	    
+	        	    
+	        	    if (choose.get() == ButtonType.OK) {
+	        	    	//saving Read
+	            		Read read = new Read(user, date, book);
+	            		MainController.mainDB.addNewRead(read);
+	            		Alerts.showAlert("New Read", "Read registered!" + sb.toString(), null, AlertType.INFORMATION);
+	        	    }
+	        	    else
+	        	    	Alerts.showAlert("New Read", "Read not registered!", null, AlertType.WARNING);
+
+    			}
+    			//book not for sale
+    			else 
+    				Alerts.showAlert("Register Read", "Error! This book is not available", null, AlertType.ERROR);
+    		}
+	    	//incorrect date
+	    	else 
+	    		Alerts.showAlert("Register Read", "Error! Incorrect date", null, AlertType.ERROR);
+	    		
     		
-    		//calculando o aluguel
-			double totalPrice = book.readBook(user);
-			double increase = totalPrice - ((book.getPrice() / 5));
-			
-			//calculando desconto
-			if (user instanceof GeekUser || user instanceof PremiumUser) {
-				totalPrice = 0.0;
-			}
-			
-			
-			//informacoes do aluguel
-			StringBuilder sb = new StringBuilder();
-			sb.append("\n");
-			sb.append("---READ INFO---");
-			sb.append("User =  " + user.toString());
-			sb.append("\n");
-			sb.append("Book =  " + book.toString());
-			sb.append("\n");
-			sb.append("Increase = $" + String.format("%.2f", increase));
-			sb.append("Total Price = $" + String.format("%.2f", totalPrice));
-			sb.append("\n");
-    		
-			
-    		//confirm Read
-    		Alert alert = new Alert(AlertType.CONFIRMATION);
-    	    alert.initStyle(StageStyle.UTILITY);
-    	    alert.setHeaderText("Confirm Read?");
-    	    Optional<ButtonType> choose = alert.showAndWait();
-    	    alert.getButtonTypes().addAll(ButtonType.CANCEL);
-    	    
-    	    
-    	    if (choose.get() == ButtonType.OK) {
-    	    	//saving Read
-        		Read read = new Read(user, date, book);
-        		MainController.mainDB.addNewRead(read);
-        		Alerts.showAlert("New Read", "Read registered!" + sb.toString(), null, AlertType.INFORMATION);
-    	    }
-    	    else
-    	    	Alerts.showAlert("New Read", "Read not registered!", null, AlertType.WARNING);
     	    
     	    
     	}
