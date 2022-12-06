@@ -35,5 +35,10 @@ public class Promotion {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	
+	@Override
+	public String toString() {
+		return "Name: " + getName() + "; Days: " + getDays() + "; Description: " + getDescription();
+	}
 
 }

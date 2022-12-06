@@ -114,4 +114,9 @@ public class MainDB {
 		return list;
 	}
 
+	public void addPromotion(Promotion promotion) {
+		promotionList.add(promotion);
+		
+	}
+
 }

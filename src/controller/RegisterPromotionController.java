@@ -10,34 +10,41 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import model.entities.Book;
+import model.entities.Promotion;
+import model.entities.User;
 import view.util.Alerts;
 
-public class RegisterPromotionController implements Initializable{
+public class RegisterPromotionController implements Initializable {
 
-	@FXML private ChoiceBox<String> choiceBox;
-	@FXML private ChoiceBox<String> choiceBox1;
-	@FXML private DatePicker datePicker1;
+	@FXML
+	private ChoiceBox<String> choiceBox;
+	@FXML
+	private ChoiceBox<String> choiceBox1;
+	@FXML
+	private DatePicker datePicker1;
+	@FXML 
+	private TextField txtName, txtDescription;
+
+	private List<Book> books = MainController.mainDB.getBookList();
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+
+		for (Book b : books)
+			choiceBox1.getItems().add(books.indexOf(b), b.toString());
+		choiceBox1.getSelectionModel().selectFirst();
+
+		datePicker1.setValue(LocalDate.now());
+	}
 	
-	private List<Book> books= MainController.mainDB.getBookList();
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-    	
-    	choiceBox.getItems().addAll("5%", "10%", "15%", "20%");
-    	choiceBox.getSelectionModel().selectFirst();
-    	
-    	for (Book b : books) 
-    		choiceBox1.getItems().add(books.indexOf(b), b.toString());
-    	choiceBox1.getSelectionModel().selectFirst();
-    	
-    	datePicker1.setValue(LocalDate.now());
-    }
-    
-    
-    public void onBtAddNewPromotion(){
+	public void onBtAddNewPromotion() {
+		
+		MainController.mainDB.addPromotion(new Promotion(txtName.getText(), null, txtDescription.getText()));
+		
 		Alerts.showAlert("New Promotion", "Promotion registered", null, AlertType.INFORMATION);
 	}
 
- 
 }
