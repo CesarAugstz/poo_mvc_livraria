@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #2C2A28;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #2C2A28;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ShowPromotionsController">
    <children>
       <Label layoutX="196.0" layoutY="45.0" text="LIVRARIA MARTELO DE ASSIS" textFill="#fcac00">
          <font>
@@ -20,11 +20,11 @@
             <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
          </padding>
          <children>
-            <TableView fx:id="tableShowUsers" layoutX="-1.0" layoutY="-1.0" prefHeight="346.0" prefWidth="748.0">
+            <TableView fx:id="tableShowPromotions" layoutX="-1.0" layoutY="-1.0" prefHeight="346.0" prefWidth="748.0">
               <columns>
-                <TableColumn prefWidth="278.0" text="BOOKS" />
-                <TableColumn minWidth="9.0" prefWidth="220.0" text="VALIDATE" />
-                  <TableColumn prefWidth="248.0" text="PRICE" />
+                <TableColumn fx:id="colName" prefWidth="278.0" text="PROMOTIONS" />
+                <TableColumn fx:id="colDays" minWidth="9.0" prefWidth="220.0" text="DAYS" />
+                  <TableColumn fx:id="colDescription" prefWidth="248.0" text="DESCRIPTION" />
               </columns>
             </TableView>
          </children>
